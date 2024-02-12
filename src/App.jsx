@@ -4,9 +4,9 @@ import GameGenre from "./components/GameGenre";
 
 function App() {
   return (
-    <div className="font-rubik">
+    <div className="font-rubik bg-gray-100 pt-8">
       <Navbar />
-      <div className="flex gap-10 mt-20 mx-2 lg:mx-5 xl:mx-10">
+      <div className="flex gap-10 mt-10 mx-2 lg:mx-5 xl:mx-10">
         <GameGenre />
         <GameList />
       </div>

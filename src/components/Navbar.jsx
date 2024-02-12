@@ -15,7 +15,7 @@ const Navbar = () => {
                     />
                 </div>
                 <div>
-                    Color switch
+                    <button>BG Switch</button>
                 </div>
             </div>
         </nav>

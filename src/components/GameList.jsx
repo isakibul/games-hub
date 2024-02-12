@@ -19,7 +19,7 @@ const GameList = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 cursor-pointer">
                 {Array.isArray(games) ? (
                     games.map((game, idx) => (
-                        <div key={idx} className="mb-10 mx-3 border">
+                        <div key={idx} className="mb-10 mx-3 border bg-white shadow-lg">
                             <img src={game.background_image} alt="game_image" className="w-[500px]" />
                             <div className="p-2">
                                 <p className="font-bold text-xl my-2">{game.name}</p>
