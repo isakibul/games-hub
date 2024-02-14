@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import useGenre from "../hooks/useGenre";
+import MyContext from "../context/MyContext";
 
 const GameGenre = () => {
-    const [genreList, setGenreList] = useState([]);
-    const { games, loading, error } = useGenre();
+    const { games: genres, loading: genreLoading, error: genreError } = useGenre();
 
-    useEffect(() => {
-        // Update the state only if games are fetched successfully
-        if (!loading && !error) {
-            setGenreList(games);
-        }
-    }, [games, loading, error]);
+    const { setGenre } = useContext(MyContext);
+
+    const handleGenreClick = (genre) => {
+        setGenre(genre);
+    };
 
     return (
         <div className="hidden md:block pr-5 max-h-screen overflow-y-auto fixed pb-20">
             <p className="text-3xl font-bold mb-2">Genre</p>
-            {genreList.map((genre, idx) => (
+            {genreLoading && <p>Loading genres...</p>}
+            {genreError && <p>Error loading genres.</p>}
+            {genres.map((genre, idx) => (
                 <div
                     key={idx}
                     className="flex gap-2 items-center mb-3 cursor-pointer"
+                    onClick={() => handleGenreClick(genre)}
                 >
                     <img
                         src={genre.image_background}

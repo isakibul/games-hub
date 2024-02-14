@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useGames = () => {
+const useGames = (initialSearchTerm) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
 
   const apiKey = "d5ee9bfaa32d43269bfd100f16a7e979";
   const apiUrl = "https://api.rawg.io/api/games";
@@ -12,9 +13,12 @@ const useGames = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+        setError(null);
         const response = await axios.get(apiUrl, {
           params: {
             key: apiKey,
+            search: searchTerm,
           },
         });
         setGames(response.data.results);
@@ -26,9 +30,13 @@ const useGames = () => {
     };
 
     fetchData();
-  }, [apiKey, apiUrl]);
+  }, [apiKey, apiUrl, searchTerm]);
 
-  return { games, loading, error };
+  const handleSearchChange = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm);
+  };
+
+  return { games, loading, error, searchTerm, handleSearchChange };
 };
 
 export default useGames;
