@@ -13,6 +13,8 @@ function App() {
 
   const { games, loading, error, searchTerm, handleSearchChange } = useGames("");
 
+  console.log(games);
+
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
@@ -26,7 +28,7 @@ function App() {
 
   return (
     <MyProvider>
-      <div className={`font-rubik h-[2500px] ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'} pt-8`}>
+      <div className={`font-rubik min-h-[100vh] ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'} pt-8`}>
         <Navbar
           onToggleDarkMode={toggleDarkMode}
           isDarkMode={isDarkMode}

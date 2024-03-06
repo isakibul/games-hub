@@ -8,25 +8,38 @@ const useGenre = () => {
 
   const apiKey = "d5ee9bfaa32d43269bfd100f16a7e979";
   const apiUrl = "https://api.rawg.io/api/genres";
+  const localStorageKey = "cachedGenres";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiUrl, {
-          params: {
-            key: apiKey,
-          },
-        });
-        setGames(response.data.results);
+        // Check if data exists in local storage
+        const cachedData = localStorage.getItem(localStorageKey);
+
+        if (cachedData) {
+          setGames(JSON.parse(cachedData));
+          setLoading(false);
+        } else {
+          const response = await axios.get(apiUrl, {
+            params: {
+              key: apiKey,
+            },
+          });
+          setGames(response.data.results);
+          // Save data to local storage
+          localStorage.setItem(
+            localStorageKey,
+            JSON.stringify(response.data.results)
+          );
+        }
       } catch (error) {
         setError(error);
-      } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [apiKey, apiUrl]);
+  }, [apiKey, apiUrl, localStorageKey]);
 
   return { games, loading, error };
 };

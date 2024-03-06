@@ -1,22 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import MyContext from "../context/MyContext";
 
 const Navbar = ({ onToggleDarkMode, isDarkMode }) => {
-
     const { search, setSearch } = useContext(MyContext);
 
+    // Event handler for search input
     const handleSearch = (event) => {
         const searchTerm = event.target.value;
         setSearch(searchTerm);
     };
+
     return (
         <nav className={`fixed top-0 w-full z-50 ${isDarkMode ? 'bg-black text-white' : 'bg-white'}`}>
+            {/* Navigation bar content */}
             <div className="flex justify-between items-center py-3 mx-2 lg:mx-5 xl:mx-10">
+                {/* Logo section */}
                 <div>
-                    <img src="/logo.svg" alt="site-logo" className="h-8" />
+                    <a href="/">
+                        {/* Site logo */}
+                        <img src="/logo.svg" alt="site-logo" className="h-8" />
+                    </a>
                 </div>
+                {/* Search input section */}
                 <div>
                     <input
                         type="search"
@@ -28,6 +35,7 @@ const Navbar = ({ onToggleDarkMode, isDarkMode }) => {
                         className="bg-gray-200 hidden md:block py-2 px-2 md:w-[400px] lg:w-[600px] text-black"
                     />
                 </div>
+                {/* Dark mode toggle button */}
                 <div>
                     <button
                         className="text-3xl"
@@ -40,6 +48,5 @@ const Navbar = ({ onToggleDarkMode, isDarkMode }) => {
         </nav>
     );
 };
-
 
 export default Navbar;
